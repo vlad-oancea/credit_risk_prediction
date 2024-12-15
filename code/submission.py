@@ -1,21 +1,19 @@
 import os
 import warnings
+import requests
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from scipy import stats
 import matplotlib.pyplot as plt
 
 from imblearn.under_sampling import TomekLinks
 from imblearn.under_sampling import RandomUnderSampler
-from imblearn.over_sampling import SMOTE
 from imblearn.combine import SMOTEENN
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -30,7 +28,7 @@ from sklearn.metrics import (
 from xgboost import XGBClassifier
 
 import tensorflow as tf
-from tensorflow.keras.models import Sequential, Model  # type: ignore
+from tensorflow.keras.models import Model  # type: ignore
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization  # type: ignore
 from tensorflow.keras.optimizers import Adam  # type: ignore
 from tensorflow.keras.metrics import AUC  # type: ignore
@@ -41,8 +39,16 @@ os.makedirs("figures", exist_ok=True)
 os.makedirs("tables", exist_ok=True)
 warnings.filterwarnings("ignore", category=UserWarning)
 
+# Download the dataset
+os.makedirs("data", exist_ok=True)
+data_file = "data/accepted_2007_to_2018Q4.csv"
+if not os.path.exists(data_file):
+    dataset_url = "https://github.com/vlad-oancea/credit_risk_prediction/releases/download/dataset-v1/accepted_2007_to_2018Q4.csv"
+    with open(data_file, "wb") as file:
+        file.write(requests.get(dataset_url).content)
+
 # Load the dataset
-df_orig = pd.read_csv("data/accepted_2007_to_2018Q4.csv", sep=",")
+df_orig = pd.read_csv(data_file, sep=",")
 
 # =========================================================================================================================================
 #                                                           DATA CLEANING
