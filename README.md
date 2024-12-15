@@ -5,7 +5,7 @@ Once you have cloned this repo, you can run the following commands at the root o
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip3 install numpy matplotlib pandas seaborn xgboost imbalanced-learn scikit-learn tensorflow requests 
+pip3 install numpy matplotlib pandas seaborn xgboost imbalanced-learn scikit-learn tensorflow requests openpyxl
 python3 code/submission.py
 ```
 This generates three folders: 

@@ -38,6 +38,7 @@ tf.config.optimizer.set_jit(True)  # Enable XLA
 os.makedirs("figures", exist_ok=True)
 os.makedirs("tables", exist_ok=True)
 warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Download the dataset
 os.makedirs("data", exist_ok=True)
@@ -593,6 +594,8 @@ plt.figure(figsize=(8, 6))
 for i in range(reordered_mc.shape[1]):
     spread = max(reordered_mc[:, i]) - min(reordered_mc[:, i])
     bins = round(spread / 30)
+    if bins <= 0:
+        bins = 10 
     sd = reordered_mc[:, i].std()
     plt.hist(
         reordered_mc[:, i],
