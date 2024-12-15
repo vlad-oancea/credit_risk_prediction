@@ -1,0 +1,10 @@
+.venv
+articles
+graphs
+*.xlsx
+*.pdf
+*.ipynb
+*.csv
+.DS_Store
+__pycache__
+*.pyc
