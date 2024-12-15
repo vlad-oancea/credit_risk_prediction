@@ -363,7 +363,7 @@ def run_all_models(train_data, test_data, resampling_name):
         pred_list[i][2] = model.predict(X_test)
 
     # Fit ANN separately
-    r = ann_model.fit(
+    ann_model.fit(
         X_train,
         y_train,
         validation_data=(X_test, y_test),
@@ -397,15 +397,15 @@ def run_all_models(train_data, test_data, resampling_name):
     # Create the table with the performance results
     results_list = []
 
-    for model[2] in pred_list:
+    for model in pred_list:
         # Calculate metrics
         accuracy = accuracy_score(y_test, model[2])
         precision = precision_score(y_test, model[2], zero_division=0)
         recall = recall_score(y_test, model[2])
         f1 = f1_score(y_test, model[2])
-        auc = roc_auc_score(y_test, model[1])
+        roc_auc = roc_auc_score(y_test, model[1])
 
-        results_list.append([accuracy, precision, recall, f1, auc])
+        results_list.append([accuracy, precision, recall, f1, roc_auc])
 
     results_df = pd.DataFrame(
         results_list,

@@ -1,12 +1,11 @@
 # Credit risk
 
-## instructions
+## Instructions
 Once you have cloned this repo, you can run the following commands at the root of the repo:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install numpy matplotlib pandas seaborn xgboost imbalanced-learn scikit-learn tensorflow requests 
-# TODO: download dataset
 python3 code/submission.py
 ```
 This generates three folders: 
