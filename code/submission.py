@@ -575,6 +575,10 @@ feature_list = [
     "purpose_credit_card",
 ]
 
+X_train = train_data_smote_enn.drop(columns=["loan_status"], axis=1)
+y_train = train_data_smote_enn["loan_status"]
+X_train = X_train.drop(columns=["id", "Unnamed: 0"], errors="ignore")
+
 mc_distrib = monte_carlo_simulation(
     data=X_train, n_sim=500, noise_proportion=0.05, feature_list=feature_list
 )
@@ -595,7 +599,7 @@ for i in range(reordered_mc.shape[1]):
     spread = max(reordered_mc[:, i]) - min(reordered_mc[:, i])
     bins = round(spread / 30)
     if bins <= 0:
-        bins = 10 
+        bins = 1
     sd = reordered_mc[:, i].std()
     plt.hist(
         reordered_mc[:, i],
